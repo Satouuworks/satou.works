@@ -859,52 +859,51 @@ h3 { font-size: 1.8rem; margin: 0 0 20px 0; text-align: center; opacity: 0.9; }
 .hero-content .quick-links { animation: fadeInUp 1s ease 1.2s backwards; }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-/* =========================
-   9. RWD (手機版調整)
-   ========================= */
-@media (max-width: 900px) {
-  header { padding: 12px 18px; }
-  .hero h1 { font-size: 3rem; }
-  .container { padding: 80px 18px; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
+/* =========================================
+   9. Mobile Responsive (手機版響應式設定)
+   ========================================= */
+
+@media screen and (max-width: 768px) {
   
-  #about { padding: 40px 0; }
-  .about-box { width: 94%; padding: 40px 24px; }
-  .about-box h2, .about-grid { max-width: 100%; }
-  .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-  .about-name { text-align: center; align-self: center; } 
-  .about-right { align-items: center; }
-  .skills-icons { justify-content: center; }
-  .about-avatar img { max-width: 280px; margin: 0 auto; display: block; }
-  .email-contact { justify-content: center; display: flex; }
+  /* 1. 全局設定：防止左右滑動爆版 */
+  html, body {
+    overflow-x: hidden; /* 禁止左右捲動 */
+    width: 100%;
+  }
+
+  /* 2. 讓所有圖片自動縮放，不要超出螢幕 */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 3. 調整字體大小 (手機上原本的標題通常太大) */
+  h1 { font-size: 2rem; } /* 標題變小一點 */
+  p { font-size: 1rem; line-height: 1.6; } /* 內文行高拉開好閱讀 */
+
+  /* 4. 進場動畫 (Preloader) 縮小 */
+  /* 因為原本 280px 在手機上太大，我們用縮放的方式讓它變小 */
+  .radial-progress-container {
+    transform: scale(0.75); /* 縮小到 75% */
+  }
   
-  h2, .about-box h2 { font-size: 2.8rem; }
-  .about-box h2 {
-    text-align: center; border-left: none; border-bottom: 5px solid var(--accent);
-    padding-left: 0; padding-bottom: 10px; display: inline-block; width: auto; margin-bottom: 30px;
+  /* 5. 社群平台圖示 (Social Icons) */
+  /* 假設你的社群圖示是用 flex 排列的，讓它們太擠時自動換行 */
+  .social-links {  /* 請確認你的 HTML class 是不是這個，或改成你的 class 名稱 */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px; /* 增加間距 */
   }
-  .dropdown { margin-left: 12px; }
-
-  /* Works Mobile */
-  .work-card { flex: 0 0 85vw; width: 85vw; } 
-  .video-wrapper { height: auto; aspect-ratio: 16/9; }
-  .scroll-btn { display: none; }
-  .carousel-container { margin: 0 -10px; width: auto; }
-  .carousel-track { padding: 10px 20px; gap: 20px; }
-
-  /* Contact Mobile */
-  #contact { padding: 100px 0; }
-  .contact-box h2 { font-size: 3rem; margin-bottom: 40px; }
-  .social-btn { width: 64px; height: 64px; font-size: 1.6rem; }
-  .social-links-container { gap: 15px; }
-
-  /* Footer Mobile */
-  .footer-container {
-    flex-direction: column; 
-    gap: 20px;
-    text-align: center;
+  
+  .social-links img {
+    width: 40px; /* 手機上圖示不用太大 */
+    height: 40px;
   }
-  .footer-right { gap: 20px; }
+
+  /* 6. 內容區塊留白 */
+  /* 避免文字貼在手機螢幕邊緣 */
+  .container, section {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }
-
-a:focus { outline: 3px solid rgba(158,116,255,0.22); outline-offset: 2px; }
