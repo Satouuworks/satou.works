@@ -860,50 +860,63 @@ h3 { font-size: 1.8rem; margin: 0 0 20px 0; text-align: center; opacity: 0.9; }
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
 /* =========================================
-   9. Mobile Responsive (手機版響應式設定)
+   9. Mobile Responsive (手機版響應式設定 - 最終修正版)
    ========================================= */
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 900px) { /* 900px 以下都算手機平板 */
   
-  /* 1. 全局設定：防止左右滑動爆版 */
+  /* 1. 全局設定 */
   html, body {
-    overflow-x: hidden; /* 禁止左右捲動 */
+    overflow-x: hidden; 
     width: 100%;
   }
 
-  /* 2. 讓所有圖片自動縮放，不要超出螢幕 */
+  /* 2. 圖片自動縮放 */
   img {
     max-width: 100%;
     height: auto;
   }
 
-  /* 3. 調整字體大小 (手機上原本的標題通常太大) */
-  h1 { font-size: 2rem; } /* 標題變小一點 */
-  p { font-size: 1rem; line-height: 1.6; } /* 內文行高拉開好閱讀 */
+  /* 3. 字體調整 */
+  h1 { font-size: 2rem; } 
+  p { font-size: 1rem; line-height: 1.6; }
 
-  /* 4. 進場動畫 (Preloader) 縮小 */
-  /* 因為原本 280px 在手機上太大，我們用縮放的方式讓它變小 */
+  /* 4. 進場動畫縮小 */
   .radial-progress-container {
-    transform: scale(0.75); /* 縮小到 75% */
+    transform: scale(0.75); 
   }
   
-  /* 5. 社群平台圖示 (Social Icons) */
-  /* 假設你的社群圖示是用 flex 排列的，讓它們太擠時自動換行 */
-  .social-links {  /* 請確認你的 HTML class 是不是這個，或改成你的 class 名稱 */
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px; /* 增加間距 */
+  /* 5. 修正最底下的社群圖示 (Contact) */
+  .social-icons-row {
+    grid-template-columns: repeat(2, 1fr); /* 變成兩排 */
+    gap: 30px; 
+    max-width: 400px;
   }
-  
-  .social-links img {
-    width: 40px; /* 手機上圖示不用太大 */
-    height: 40px;
+  .social-icons-row img {
+    width: 100px;  
+    height: 100px;
   }
 
-  /* 6. 內容區塊留白 */
-  /* 避免文字貼在手機螢幕邊緣 */
+  /* 6. 內容留白 */
   .container, section {
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  /* ★★★ 7. 重點修正：「關於我」的軟體圖示 ★★★ */
+  /* 這次用的是正確的名稱 .skills-icons */
+  .skills-icons {
+    display: flex;
+    flex-wrap: wrap;        /* 關鍵：讓圖示太擠時自動換行！ */
+    justify-content: center; /* 置中對齊 */
+    gap: 15px;              /* 圖示之間的距離 */
+    margin-top: 20px;
+  }
+  
+  /* 強制縮小圖示 (原本 72px 太大) */
+  .skills-icons img {
+    width: 45px !important;  /* 強制改成 45px，手機看剛剛好 */
+    height: 45px !important;
+    margin: 5px;
   }
 }
