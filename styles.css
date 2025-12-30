@@ -1,387 +1,23 @@
-/* =========================
-   1. 全域變數與基礎設定
-   ========================= */
-:root {
-  --bg1: #2b1852; 
-  --bg2: #1a0f38; 
-  --accent: #9e74ff; 
-  --glass: rgba(255,255,255,0.06); 
-  --text: #ffffff; 
-}
+/* =======================================================
+   SATOU WORKS - 最終精簡優化版 (Clean & Optimized)
+   ======================================================= */
 
+/* 1. 全域設定 */
+:root {
+  --bg1: #2b1852; --bg2: #1a0f38; --accent: #9e74ff; 
+  --glass: rgba(255,255,255,0.06); --text: #ffffff; 
+}
 * { box-sizing: border-box; }
 html, body { height: 100%; }
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 100px; 
-}
-
+html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 body {
-  margin: 0;
-  font-family: "Noto Sans TC", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  color: var(--text);
-  background-color: var(--bg2); 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0; font-family: "Noto Sans TC", sans-serif;
+  color: var(--text); background-color: var(--bg2); 
   overflow-x: hidden;
 }
-
-/* =========================
-   2. Header (導航列)
-   ========================= */
-header {
-  position: fixed; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 18px 40px; z-index: 1000;
-  background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.06));
-  backdrop-filter: blur(8px);
-}
-.logo { font-weight: 700; letter-spacing: 1px; }
-nav a { color: var(--text); text-decoration: none; margin-left: 22px; font-weight: 600; }
-
-.dropdown { position: relative; display: inline-block; margin-left: 22px; }
-.dropdown .dropbtn {
-  color: var(--text); text-decoration: none; font-weight: 600;
-  margin-left: 0; cursor: pointer; display: flex; align-items: center; gap: 6px;
-}
-.dropdown-content {
-  display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  background-color: var(--bg1); min-width: 160px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3); border-radius: 12px; padding: 8px 0;
-  z-index: 1001; border: 1px solid rgba(255,255,255,0.05); backdrop-filter: blur(10px);
-}
-.dropdown-content a {
-  color: var(--text); padding: 12px 20px; text-decoration: none;
-  display: block; text-align: center; margin-left: 0; font-size: 0.95rem; transition: 0.2s;
-}
-.dropdown-content a:hover { background-color: rgba(158, 116, 255, 0.2); color: var(--accent); }
-.dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
-.dropdown:hover .dropbtn i { transform: rotate(180deg); transition: 0.3s; }
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, 10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-/* =========================
-   3. Hero Section (首頁 - 影片+躁點特效)
-   ========================= */
-.hero {
-  position: relative; 
-  height: 100vh;
-  width: 100%;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  overflow: hidden; 
-  background-color: var(--bg2); 
-}
-
-.hero-video {
-  position: absolute;
-  top: 50%; left: 50%;
-  min-width: 100%; min-height: 100%;
-  width: auto; height: auto;
-  transform: translate(-50%, -50%) scale(1.1); 
-  z-index: 0;
-  object-fit: cover;
-  filter: blur(12px) brightness(0.8); 
-  opacity: 0.8; 
-}
-
-.noise-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 1;
-  pointer-events: none; 
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.15; 
-  mix-blend-mode: overlay; 
-}
-
-.dark-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  z-index: 2;
-  background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
-}
-
-.hero-content { 
-  position: relative; z-index: 3; text-align: center; padding: 20px; 
-}
-.hero h1 { font-size: 4rem; margin: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.5); } 
-.hero p { margin: 10px 0 20px; font-size: 1.1rem; opacity: 0.95; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
-
-.quick-links .btn {
-  display: inline-block; margin: 6px 10px; padding: 10px 16px;
-  border-radius: 10px; background: rgba(255, 255, 255, 0.1); 
-  text-decoration: none; color: var(--text); font-weight: 600;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: 0.3s;
-}
-.quick-links .btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
-
-/* =========================
-   4. About Section
-   ========================= */
-.container { padding: 110px 24px; max-width: 1100px; margin: 0 auto; }
-
-#about { width: 100%; padding: 60px 0 60px 0; display: flex; justify-content: center; background-color: transparent; }
-.about-box {
-  background-color: var(--bg1); width: 94%; max-width: 1600px; padding: 60px; 
-  border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-  display: flex; flex-direction: column; align-items: center; 
-}
-.about-box h2, .about-grid { width: 100%; max-width: 1100px; }
-.about-box h2 {
-  text-align: left; margin-left: 0; margin-top: 0; margin-bottom: 30px;
-  font-size: 3.6rem; border-left: 5px solid var(--accent); padding-left: 16px; opacity: 0.95;
-}
-
-.about-grid { display: grid; grid-template-columns: 350px 1fr; gap: 60px; align-items: center; }
-.about-left { display: flex; flex-direction: column; gap: 18px; }
-.about-avatar img { width: 100%; border-radius: 16px; object-fit: cover; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
-
-.about-right { display: flex; flex-direction: column; align-items: flex-start; }
-.about-name { font-size: 3.2rem; margin-bottom: 16px; font-weight: 700; margin-top: 0; text-align: left; }
-.about-right .lead { font-size: 1.35rem; line-height: 1.7; margin-bottom: 24px; opacity: 0.95; }
-.skills-icons { margin-top: 24px; display: flex; align-items: center; gap: 32px; }
-.skills-icons i, .skills-icons img { font-size: 72px; width: 72px; height: 72px; opacity: 0.9; transition: 0.25s; }
-.skills-icons i:hover, .skills-icons img:hover { transform: translateY(-6px); opacity: 1; }
-.email-contact { margin-top: 32px; font-size: 1.2rem; opacity: 0.9; }
-.email-contact a { color: var(--accent); text-decoration: none; }
-.email-contact a:hover { text-decoration: underline; }
-
-/* =========================
-   5. Works Section
-   ========================= */
-#works { background-color: var(--bg2); }
-
-h2 {
-  font-size: 3.6rem; margin-bottom: 30px;
-  border-left: 5px solid var(--accent); padding-left: 16px; opacity: 0.95;
-}
-
-.works-section { width: 100%; padding: 60px 0; overflow: hidden; }
-.works-grid-container { display: flex; flex-direction: column; gap: 60px; width: 94%; max-width: 1920px; margin: 0 auto; }
-.works-section h2 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 50px; }
-h3 { font-size: 1.8rem; margin: 0 0 20px 0; text-align: center; opacity: 0.9; }
-.work-category-block { margin-bottom: 20px; }
-
-.carousel-container { position: relative; width: 100%; display: flex; align-items: center; }
-.carousel-track {
-  display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth;
-  padding: 10px 4px; width: fit-content; max-width: 100%; margin: 0 auto;
-  -ms-overflow-style: none; scrollbar-width: none; align-items: flex-start; 
-}
-.carousel-track::-webkit-scrollbar { display: none; }
-
-.work-card {
-  flex: 0 0 560px; width: 560px;
-  display: flex; flex-direction: column; align-items: center;
-  transition: transform 0.3s; height: auto; 
-}
-
-.video-wrapper {
-  position: relative; width: 100%; height: 315px; 
-  overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); background-color: #000; transition: 0.3s;
-  flex-shrink: 0; 
-}
-.video-link { display: block; width: 100%; height: 100%; position: absolute; top:0; left:0; text-decoration: none; }
-.video-link img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s; }
-
-.card-top-title { font-size: 1.2rem; margin-bottom: 12px; font-weight: 600; opacity: 0.9; text-align: center; }
-.card-bottom-title { 
-  font-size: 1.4rem; margin-top: 14px; font-weight: 700; color: var(--accent); text-align: center;
-  width: 100%; white-space: normal; line-height: 1.5; overflow: visible;    
-}
-
-.play-icon {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 60px; height: 60px; background: rgba(0,0,0,0.6); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 24px; pointer-events: none;
-}
-.play-icon i { margin-left: 4px; }
-.work-card:hover .video-wrapper { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(158, 116, 255, 0.2); border-color: var(--accent); }
-.work-card:hover .video-link img { opacity: 1; transform: scale(1.05); }
-
-.scroll-btn {
-  position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
-  background-color: rgba(26, 15, 56, 0.8); border: 1px solid rgba(255,255,255,0.1);
-  color: var(--accent); width: 50px; height: 50px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); opacity: 0; font-size: 1.2rem;
-}
-.carousel-container:hover .scroll-btn { opacity: 1; }
-.scroll-btn:hover { background-color: var(--accent); color: white; transform: translateY(-50%) scale(1.1); }
-.left-btn { left: -25px; }
-.right-btn { right: -25px; }
-
-/* =========================
-   6. Contact Section (大圖示版 + 動畫準備)
-   ========================= */
-#contact {
-  background-color: var(--bg2); 
-  padding: 120px 0 150px 0; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-#contact h2 {
-  font-size: 4.5rem; 
-  text-align: center;
-  border: none; 
-  padding: 0;
-  margin-top: 0; 
-  margin-bottom: 70px; 
-  letter-spacing: 2px;
-}
-
-/* 圖示排列容器 */
-.social-icons-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap; 
-  gap: 30px;       /* 間距縮小一點，因為圖示變大了 */
-  width: 90%;
-  max-width: 1400px; /* 容器加寬，容納大圖示 */
-}
-
-/* 圖示連結外框 */
-.social-icons-row a {
-  display: block;
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  opacity: 0.85; 
-}
-
-/* --- 圖片本體樣式 (尺寸加大) --- */
-.social-icons-row img {
-  width: 130px;    /* 從 80px 加大到 130px */
-  height: 130px;   
-  object-fit: contain; 
-  border-radius: 24px; /* 圓角稍微加大 */
-  display: block; 
-}
-
-/* Hover 特效 */
-.social-icons-row a:hover {
-  opacity: 1; 
-  transform: translateY(-10px) scale(1.1); 
-  filter: drop-shadow(0 0 15px rgba(158, 116, 255, 0.7)); 
-}
-
-/* --- RWD 手機版調整 --- */
-@media (max-width: 900px) {
-  #contact h2 { font-size: 3rem; margin-bottom: 40px; }
-  
-  .social-icons-row {
-    gap: 20px; 
-  }
-  
-  .social-icons-row img {
-    width: 90px;  /* 手機版從 60px 加大到 90px */
-    height: 90px;
-  }
-}
-
-/* =========================
-   7. Footer
-   ========================= */
-footer {
-  background-color: var(--bg2);
-  padding: 60px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); 
-  font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);
-}
-
-.footer-container {
-  width: 94%; max-width: 1600px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-}
-.footer-left { font-weight: 500; letter-spacing: 0.5px; }
-.footer-right { display: flex; gap: 30px; }
-.footer-right a { color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s ease; font-weight: 500; }
-.footer-right a:hover { color: var(--accent); }
-
-/* =========================
-   8. Preloader & Animations
-   ========================= */
-#preloader {
-  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: var(--bg2); z-index: 9999;
-  display: flex; justify-content: center; align-items: center;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-.loader-content { text-align: center; color: var(--text); }
-.loader-logo { font-size: 3rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 20px; opacity: 0; animation: logoFadeIn 1s ease forwards; }
-.loading-bar { width: 0%; height: 4px; background-color: var(--accent); border-radius: 2px; margin: 0 auto; animation: barLoad 1.5s ease-in-out forwards; }
-@keyframes logoFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
-@keyframes barLoad { 0% { width: 0%; } 50% { width: 50%; } 100% { width: 150px; } }
-#preloader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
-
-.scroll-reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-.scroll-reveal.active { opacity: 1; transform: translateY(0); }
-
-.hero-content h1 { animation: fadeInUp 1s ease 0.8s backwards; }
-.hero-content p { animation: fadeInUp 1s ease 1.0s backwards; }
-.hero-content .quick-links { animation: fadeInUp 1s ease 1.2s backwards; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-/* =========================
-   9. RWD
-   ========================= */
-@media (max-width: 900px) {
-  header { padding: 12px 18px; }
-  .hero h1 { font-size: 3rem; }
-  .container { padding: 80px 18px; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-  
-  #about { padding: 40px 0; }
-  .about-box { width: 94%; padding: 40px 24px; }
-  .about-box h2, .about-grid { max-width: 100%; }
-  .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
-  .about-name { text-align: center; align-self: center; } 
-  .about-right { align-items: center; }
-  .skills-icons { justify-content: center; }
-  .about-avatar img { max-width: 280px; margin: 0 auto; display: block; }
-  .email-contact { justify-content: center; display: flex; }
-  
-  h2, .about-box h2 { font-size: 2.8rem; }
-  .about-box h2 { text-align: center; border-left: none; border-bottom: 5px solid var(--accent); padding-left: 0; padding-bottom: 10px; display: inline-block; width: auto; margin-bottom: 30px; }
-  .dropdown { margin-left: 12px; }
-
-  /* Works Mobile */
-  .work-card { flex: 0 0 85vw; width: 85vw; } 
-  .video-wrapper { height: auto; aspect-ratio: 16/9; }
-  .scroll-btn { display: none; }
-  .carousel-container { margin: 0 -10px; width: auto; }
-  .carousel-track { padding: 10px 20px; gap: 20px; }
-
-  /* Contact Mobile */
-  .contact-box { padding: 40px 24px; }
-  .contact-box h2 { font-size: 3rem; margin-bottom: 30px; }
-  .social-gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-  .card-content h3 { font-size: 1.3rem; }
-
-  /* Footer Mobile */
-  .footer-container { flex-direction: column; gap: 20px; text-align: center; }
-  .footer-right { gap: 20px; }
-}
-
 a:focus { outline: 3px solid rgba(158,116,255,0.22); outline-offset: 2px; }
 
-/* =========================
-   2. Header (導航列)
-   ========================= */
+/* 2. Header & Nav */
 header {
   position: fixed; top: 0; left: 0; right: 0;
   display: flex; align-items: center; justify-content: space-between;
@@ -396,7 +32,7 @@ nav a { color: var(--text); text-decoration: none; margin-left: 22px; font-weigh
 .dropdown { position: relative; display: inline-block; margin-left: 22px; }
 .dropdown .dropbtn {
   color: var(--text); text-decoration: none; font-weight: 600;
-  margin-left: 0; cursor: pointer; display: flex; align-items: center; gap: 6px;
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
 }
 .dropdown-content {
   display: none; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
@@ -406,517 +42,241 @@ nav a { color: var(--text); text-decoration: none; margin-left: 22px; font-weigh
 }
 .dropdown-content a {
   color: var(--text); padding: 12px 20px; text-decoration: none;
-  display: block; text-align: center; margin-left: 0; font-size: 0.95rem; transition: 0.2s;
+  display: block; text-align: center; font-size: 0.95rem; transition: 0.2s;
 }
 .dropdown-content a:hover { background-color: rgba(158, 116, 255, 0.2); color: var(--accent); }
 .dropdown:hover .dropdown-content { display: block; animation: fadeIn 0.3s ease; }
 .dropdown:hover .dropbtn i { transform: rotate(180deg); transition: 0.3s; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translate(-50%, 10px); }
-  to { opacity: 1; transform: translate(-50%, 0); }
-}
-
-/* =========================
-   3. Hero Section (首頁 - 影片+躁點特效)
-   ========================= */
+/* 3. Hero Section */
 .hero {
-  position: relative; 
-  height: 100vh;
-  width: 100%;
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  overflow: hidden; /* 重要：防止模糊後的影片邊緣跑出視窗 */
-  background-color: var(--bg2); /* 影片載入前的底色 */
+  position: relative; height: 100vh; width: 100%;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; background-color: var(--bg2); 
 }
-
-/* 1. 背景影片設定 */
 .hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%) scale(1.1); /* 放大 1.1 倍以消除模糊白邊 */
-  z-index: 0;
-  object-fit: cover;
-  
-  /* --- 特效區 --- */
-  filter: blur(12px) brightness(0.8); /* 模糊 12px + 稍微調暗 */
-  opacity: 0.8; /* 稍微透出底色，讓顏色更融合 */
+  position: absolute; top: 50%; left: 50%;
+  min-width: 100%; min-height: 100%; width: auto; height: auto;
+  transform: translate(-50%, -50%) scale(1.1); 
+  z-index: 0; object-fit: cover;
+  filter: blur(12px) brightness(0.8); opacity: 0.8; 
 }
-
-/* 2. 躁點 (Noise) 紋理遮罩 */
 .noise-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none; /* 讓滑鼠可以穿透點擊 */
-  
-  /* 使用 SVG Base64 生成躁點圖案 */
+  position: absolute; inset: 0; z-index: 1; pointer-events: none; 
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
-  
-  opacity: 0.15; /* 調整躁點明顯程度 (0.05 ~ 0.2 之間最適合) */
-  mix-blend-mode: overlay; /* 混合模式，讓躁點融入影片 */
+  opacity: 0.15; mix-blend-mode: overlay; 
 }
-
-/* 3. 暗色遮罩 (漸層) */
 .dark-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  /* 左黑右透的漸層，或是全黑半透明，讓文字更凸顯 */
+  position: absolute; inset: 0; z-index: 2;
   background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
 }
-
-/* 4. 內容層級 (必須在最上面) */
-.hero-content { 
-  position: relative; 
-  z-index: 3; 
-  text-align: center; 
-  padding: 20px; 
-}
-
-/* 文字動畫保持不變 */
+.hero-content { position: relative; z-index: 3; text-align: center; padding: 20px; }
 .hero h1 { font-size: 4rem; margin: 0; text-shadow: 0 4px 10px rgba(0,0,0,0.5); } 
-.hero p { margin: 10px 0 20px; font-size: 1.1rem; opacity: 0.95; text-shadow: 0 2px 5px rgba(0,0,0,0.5); }
+.hero p { margin: 10px 0 20px; font-size: 1.1rem; opacity: 0.95; }
+.hero-content h1 { animation: fadeInUp 1s ease 0.8s backwards; }
+.hero-content p { animation: fadeInUp 1s ease 1.0s backwards; }
+.hero-content .quick-links { animation: fadeInUp 1s ease 1.2s backwards; }
 
 .quick-links .btn {
   display: inline-block; margin: 6px 10px; padding: 10px 16px;
-  border-radius: 10px; background: rgba(255, 255, 255, 0.1); /* 改為更透的玻璃感 */
+  border-radius: 10px; background: rgba(255, 255, 255, 0.1); 
   text-decoration: none; color: var(--text); font-weight: 600;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: 0.3s;
+  backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2); transition: 0.3s;
 }
+.quick-links .btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-.quick-links .btn:hover {
-  background: var(--accent);
-  color: white;
-  border-color: var(--accent);
-}
-
-/* 容器通用設定 */
+/* 4. About Section */
 .container { padding: 110px 24px; max-width: 1100px; margin: 0 auto; }
-
-/* =========================
-   4. About Section (關於我)
-   ========================= */
-#about {
-  width: 100%; padding: 60px 0 60px 0; 
-  display: flex; justify-content: center; background-color: transparent; 
-}
+#about { width: 100%; padding: 60px 0; display: flex; justify-content: center; }
 .about-box {
   background-color: var(--bg1); width: 94%; max-width: 1600px; padding: 60px; 
   border-radius: 30px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   display: flex; flex-direction: column; align-items: center; 
 }
-.about-box h2, .about-grid { width: 100%; max-width: 1100px; }
 .about-box h2 {
-  text-align: left; margin-left: 0; margin-top: 0; margin-bottom: 30px;
+  width: 100%; max-width: 1100px; text-align: left; margin: 0 0 30px 0;
   font-size: 3.6rem; border-left: 5px solid var(--accent); padding-left: 16px; opacity: 0.95;
 }
-
-.about-grid { display: grid; grid-template-columns: 350px 1fr; gap: 60px; align-items: center; }
+.about-grid { display: grid; grid-template-columns: 350px 1fr; gap: 60px; align-items: center; width: 100%; max-width: 1100px; }
 .about-left { display: flex; flex-direction: column; gap: 18px; }
-.about-avatar img {
-  width: 100%; border-radius: 16px; object-fit: cover; box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-}
-
+.about-avatar img { width: 100%; border-radius: 16px; object-fit: cover; box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
 .about-right { display: flex; flex-direction: column; align-items: flex-start; }
-.about-name { font-size: 3.2rem; margin-bottom: 16px; font-weight: 700; margin-top: 0; text-align: left; }
+.about-name { font-size: 3.2rem; margin: 0 0 16px 0; font-weight: 700; }
 .about-right .lead { font-size: 1.35rem; line-height: 1.7; margin-bottom: 24px; opacity: 0.95; }
+
+/* 軟體技能圖示 (桌面版) */
 .skills-icons { margin-top: 24px; display: flex; align-items: center; gap: 32px; }
-.skills-icons i, .skills-icons img {
-  font-size: 72px; width: 72px; height: 72px; opacity: 0.9; transition: 0.25s;
-}
+.skills-icons i, .skills-icons img { font-size: 72px; width: 72px; height: 72px; opacity: 0.9; transition: 0.25s; }
 .skills-icons i:hover, .skills-icons img:hover { transform: translateY(-6px); opacity: 1; }
 .email-contact { margin-top: 32px; font-size: 1.2rem; opacity: 0.9; }
 .email-contact a { color: var(--accent); text-decoration: none; }
-.email-contact a:hover { text-decoration: underline; }
 
-/* =========================
-   5. Works Section (作品集 - 尺寸嚴格統一)
-   ========================= */
+/* 5. Works Section */
 #works { background-color: var(--bg2); }
-
-h2 {
-  font-size: 3.6rem; margin-bottom: 30px;
-  border-left: 5px solid var(--accent); padding-left: 16px; opacity: 0.95;
-}
-
+h2 { font-size: 3.6rem; margin-bottom: 30px; border-left: 5px solid var(--accent); padding-left: 16px; opacity: 0.95; }
 .works-section { width: 100%; padding: 60px 0; overflow: hidden; }
-.works-grid-container { 
-  display: flex; flex-direction: column; gap: 60px; 
-  width: 94%; max-width: 1920px; margin: 0 auto; 
-}
+.works-grid-container { display: flex; flex-direction: column; gap: 60px; width: 94%; max-width: 1920px; margin: 0 auto; }
 .works-section h2 { text-align: center; border-left: none; padding-left: 0; margin-bottom: 50px; }
 h3 { font-size: 1.8rem; margin: 0 0 20px 0; text-align: center; opacity: 0.9; }
 .work-category-block { margin-bottom: 20px; }
 
-/* 輪播軌道 */
 .carousel-container { position: relative; width: 100%; display: flex; align-items: center; }
 .carousel-track {
   display: flex; gap: 30px; overflow-x: auto; scroll-behavior: smooth;
-  padding: 10px 4px; 
-  width: fit-content; max-width: 100%; margin: 0 auto;
-  -ms-overflow-style: none; scrollbar-width: none;
-  align-items: flex-start; /* 讓卡片靠上對齊 */
+  padding: 10px 4px; width: fit-content; max-width: 100%; margin: 0 auto;
+  -ms-overflow-style: none; scrollbar-width: none; align-items: flex-start; 
 }
 .carousel-track::-webkit-scrollbar { display: none; }
 
-/* --- 作品卡片 (強制固定 560px) --- */
-.work-card {
-  /* 關鍵：0 0 560px 代表「不准放大、不准縮小、固定 560px」 */
-  flex: 0 0 560px; 
-  width: 560px;
-  display: flex; flex-direction: column; align-items: center;
-  transition: transform 0.3s;
-  height: auto; /* 高度自動，讓文字可以撐開 */
-}
-
-/* 影片/圖片容器 (強制 16:9) */
+.work-card { flex: 0 0 560px; width: 560px; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s; }
 .video-wrapper {
-  position: relative; 
-  width: 100%; 
-  /* 計算：560px * 9 / 16 = 315px */
-  height: 315px; 
-  overflow: hidden; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3); background-color: #000; transition: 0.3s;
-  flex-shrink: 0; /* 防止圖片被文字擠壓 */
+  position: relative; width: 100%; height: 315px; overflow: hidden; 
+  border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3); background-color: #000; transition: 0.3s; flex-shrink: 0; 
 }
-.video-link { display: block; width: 100%; height: 100%; position: absolute; top:0; left:0; text-decoration: none; }
-.video-link img {
-  width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s;
-}
-
-/* 文字標題 */
-.card-top-title { 
-  font-size: 1.2rem; margin-bottom: 12px; font-weight: 600; opacity: 0.9; text-align: center; 
-}
-.card-bottom-title { 
-  font-size: 1.4rem; margin-top: 14px; font-weight: 700; color: var(--accent); text-align: center;
-  width: 100%;
-  white-space: normal;  /* 允許文字換行 */
-  line-height: 1.5;     
-  overflow: visible;    
-}
-
-/* 播放鈕與 Hover */
+.video-link { display: block; width: 100%; height: 100%; position: absolute; top:0; left:0; }
+.video-link img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; transition: 0.3s; }
 .play-icon {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   width: 60px; height: 60px; background: rgba(0,0,0,0.6); border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  color: white; font-size: 24px; pointer-events: none;
+  display: flex; align-items: center; justify-content: center; color: white; pointer-events: none;
 }
-.play-icon i { margin-left: 4px; }
+.card-top-title { font-size: 1.2rem; margin-bottom: 12px; font-weight: 600; opacity: 0.9; text-align: center; }
+.card-bottom-title { font-size: 1.4rem; margin-top: 14px; font-weight: 700; color: var(--accent); text-align: center; width: 100%; white-space: normal; line-height: 1.5; }
+
 .work-card:hover .video-wrapper { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(158, 116, 255, 0.2); border-color: var(--accent); }
 .work-card:hover .video-link img { opacity: 1; transform: scale(1.05); }
 
-/* 左右切換按鈕 */
 .scroll-btn {
   position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
   background-color: rgba(26, 15, 56, 0.8); border: 1px solid rgba(255,255,255,0.1);
   color: var(--accent); width: 50px; height: 50px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); opacity: 0; font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+  opacity: 0; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 .carousel-container:hover .scroll-btn { opacity: 1; }
 .scroll-btn:hover { background-color: var(--accent); color: white; transform: translateY(-50%) scale(1.1); }
-.left-btn { left: -25px; }
-.right-btn { right: -25px; }
+.left-btn { left: -25px; } .right-btn { right: -25px; }
 
-/* =========================
-   6. Contact Section (強制對齊修正版)
-   ========================= */
+/* 6. Contact Section */
 #contact {
-  background-color: var(--bg2); 
-  /* 增加底部間距：改為 220px，讓它跟 Footer 距離更遠一點 */
-  padding: 120px 0 220px 0; 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  background-color: var(--bg2); padding: 120px 0 220px 0; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-
-#contact h2 {
-  font-size: 4.5rem; 
-  text-align: center;
-  border: none; 
-  padding: 0;
-  margin-top: 0; 
-  margin-bottom: 80px; 
-  letter-spacing: 2px;
-}
-
-/* 使用 Grid 網格佈局來強制對齊 */
+#contact h2 { font-size: 4.5rem; text-align: center; border: none; padding: 0; margin-bottom: 80px; }
 .social-icons-row {
-  display: grid;
-  /* 預設 (大螢幕)：強制 8 個一排，絕不換行 */
-  grid-template-columns: repeat(8, 1fr); 
-  
-  /* 讓內容在格子內置中 */
-  justify-items: center;
-  align-items: center;
-  
-  gap: 20px;       /* 格子之間的間距 */
-  width: 94%;      /* 容器寬度 */
-  max-width: 1600px; /* 最大寬度 */
-  margin: 0 auto;
+  display: grid; grid-template-columns: repeat(8, 1fr); justify-items: center; align-items: center;
+  gap: 20px; width: 94%; max-width: 1600px; margin: 0 auto;
 }
-
-/* 圖示連結外框 */
-.social-icons-row a {
-  display: block;
-  text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  opacity: 0.9; 
-}
-
-/* --- 圖片本體 --- */
+.social-icons-row a { display: block; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); opacity: 0.9; }
 .social-icons-row img {
-  width: 140px;    /* 設定一個適中的大小，確保 8 個能塞進去 */
-  height: 140px;   
-  object-fit: contain; 
-  border-radius: 28px; 
-  display: block; 
+  width: 140px; height: 140px; object-fit: contain; border-radius: 28px; display: block; 
   filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
 }
+.social-icons-row a:hover { opacity: 1; transform: translateY(-12px) scale(1.1); filter: drop-shadow(0 0 20px rgba(158, 116, 255, 0.6)); z-index: 10; }
 
-/* Hover 特效 */
-.social-icons-row a:hover {
-  opacity: 1; 
-  transform: translateY(-12px) scale(1.1); 
-  filter: drop-shadow(0 0 20px rgba(158, 116, 255, 0.6)); 
-  z-index: 10; 
+/* 7. Footer */
+footer {
+  background-color: var(--bg2); padding: 60px 0; border-top: 1px solid rgba(255, 255, 255, 0.1); 
+  font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);
 }
+.footer-container { width: 94%; max-width: 1600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.footer-right { display: flex; gap: 30px; }
+.footer-right a { color: rgba(255, 255, 255, 0.6); text-decoration: none; transition: color 0.3s; }
+.footer-right a:hover { color: var(--accent); }
 
-/* --- RWD 響應式調整 (關鍵！) --- */
-
-/* 1. 當螢幕小於 1400px (普通筆電) -> 變成 4 個一排 (共兩排，4+4) */
-@media (max-width: 1400px) {
-  .social-icons-row {
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 40px; /* 拉大間距讓兩排看起來更舒服 */
-    max-width: 800px; /* 限制寬度讓它們集中 */
-  }
-}
-
-/* 2. 當螢幕小於 768px (手機/平板直向) -> 變成 2 個一排 (共四排) */
-@media (max-width: 768px) {
-  #contact h2 { font-size: 3rem; margin-bottom: 50px; }
-  
-  .social-icons-row {
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 30px; 
-    max-width: 400px;
-  }
-  
-  .social-icons-row img {
-    width: 100px;  
-    height: 100px;
-    border-radius: 20px;
-  }
-}
-
-/* =========================
-   8. Preloader & Animations (位置微調版 -6px)
-   ========================= */
-
+/* 8. Preloader */
 #preloader {
   position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-  background-color: var(--bg2); 
-  z-index: 9999;
+  background-color: var(--bg2); z-index: 9999;
   display: flex; justify-content: center; align-items: center;
   transition: opacity 0.8s ease, visibility 0.8s ease;
 }
-
-.loader-content { 
-  display: flex; flex-direction: column; align-items: center;
-  gap: 20px; 
-}
-
-/* --- 核心容器 --- */
+.loader-content { display: flex; flex-direction: column; align-items: center; gap: 20px; }
 .radial-progress-container {
-  position: relative;
-  width: 280px; height: 280px;
+  position: relative; width: 280px; height: 280px;
   display: flex; justify-content: center; align-items: center;
-  opacity: 0;
-  animation: fadeInFloat 1.5s ease forwards 0.1s;
+  opacity: 0; animation: fadeInFloat 1.5s ease forwards 0.1s;
 }
-
-/* --- 1. 圖示區域 (白框容器) --- */
 .loader-image-box {
-  position: absolute;
-  z-index: 1; 
-  
-  /* 強制白框在圓環內絕對置中 */
-  inset: 0;
-  margin: auto;
-  
-  width: 182px; height: 182px;
-  border-radius: 50%;
-  border: 5px solid #ffffff; 
-  box-shadow: 0 0 25px rgba(255,255,255,0.4); 
-  overflow: hidden;
-  display: flex; justify-content: center; align-items: center;
+  position: absolute; inset: 0; margin: auto; width: 182px; height: 182px;
+  border-radius: 50%; border: 5px solid #ffffff; overflow: hidden;
+  box-shadow: 0 0 25px rgba(255,255,255,0.4); display: flex; justify-content: center; align-items: center;
 }
-
-/* --- 圖片本體 (位置微調) --- */
-.loader-image-box img {
-  width: 100%; height: 100%;
-  object-fit: cover;
-  
-  /* ★關鍵修正：translate(0px, -6px) */
-  /* 將上移幅度減少，讓它稍微下來一點 */
-  transform: scale(1.25) translate(0px, -6px); 
-}
-
-/* --- 2. SVG 環繞進度條 --- */
-.progress-ring {
-  position: absolute; top: 0; left: 0;
-  inset: 0; margin: auto; 
-  z-index: 2; 
-  transform: rotate(-90deg);
-  pointer-events: none; 
-}
-
-.progress-ring__track {
-  fill: transparent;
-  stroke: rgba(255,255,255,0.05); 
-  stroke-width: 8px; 
-}
-
+.loader-image-box img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.25) translate(0px, -6px); }
+.progress-ring { position: absolute; inset: 0; margin: auto; transform: rotate(-90deg); }
+.progress-ring__track { fill: transparent; stroke: rgba(255,255,255,0.05); stroke-width: 8px; }
 .progress-ring__bar {
-  fill: transparent;
-  stroke: var(--accent); 
-  stroke-width: 8px;
-  stroke-linecap: round;
+  fill: transparent; stroke: var(--accent); stroke-width: 8px; stroke-linecap: round;
   animation: ringProgress 2.5s cubic-bezier(0.22, 0.61, 0.36, 1) forwards 0s;
   filter: drop-shadow(0 0 8px var(--accent));
 }
-
-/* --- 下方文字區域 --- */
-.text-container {
-  text-align: center;
-  display: flex; flex-direction: column;
-  gap: 8px; 
-  transform: translateY(-30px);
-}
-
+.text-container { text-align: center; display: flex; flex-direction: column; gap: 8px; transform: translateY(-30px); }
 .loader-title {
-  margin: 0;
-  font-family: "Courier New", Courier, monospace;
-  font-size: 1.4rem; font-weight: 700; color: #fff;
-  letter-spacing: 6px; text-transform: uppercase;
-  opacity: 0;
-  animation: titleEntry 1.5s ease-out forwards 0.2s;
+  font-family: monospace; font-size: 1.4rem; font-weight: 700; letter-spacing: 6px; color: #fff;
+  opacity: 0; animation: titleEntry 1.5s ease-out forwards 0.2s;
 }
+.loading-text { font-family: monospace; font-size: 0.75rem; color: rgba(255,255,255,0.5); letter-spacing: 2px; opacity: 0; animation: fadeInSimple 0.8s ease forwards 0.5s; }
 
-.loading-text {
-  font-family: "Courier New", Courier, monospace;
-  font-size: 0.75rem; color: rgba(255,255,255,0.5); 
-  letter-spacing: 2px; text-transform: uppercase;
-  opacity: 0; 
-  animation: fadeInSimple 0.8s ease forwards 0.5s;
-}
-
-/* ====== 動畫定義 ====== */
+/* 動畫 Keyframes */
+@keyframes fadeIn { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes ringProgress { to { stroke-dashoffset: 0; } }
 @keyframes fadeInSimple { to { opacity: 1; } }
-@keyframes fadeInFloat { 
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
+@keyframes fadeInFloat { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 @keyframes titleEntry {
-  0%   { opacity: 0; text-shadow: none; }
-  10%  { opacity: 1; text-shadow: 0 0 10px #fff; }
-  15%  { opacity: 0.1; text-shadow: none; }
-  20%  { opacity: 1; text-shadow: 0 0 5px var(--accent); }
-  30%  { opacity: 0.5; text-shadow: none; }
-  40%  { opacity: 1; text-shadow: 0 0 15px var(--accent), 0 0 30px #fff; }
-  50%  { opacity: 0.8; text-shadow: 0 0 10px var(--accent); }
+  0% { opacity: 0; } 10% { opacity: 1; text-shadow: 0 0 10px #fff; }
   100% { opacity: 1; text-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent); }
 }
-
 #preloader.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
-
-/* 保持原有其他動畫 */
-.scroll-reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.scroll-reveal { opacity: 0; transform: translateY(50px); transition: all 0.8s ease; }
 .scroll-reveal.active { opacity: 1; transform: translateY(0); }
-.hero-content h1 { animation: fadeInUp 1s ease 0.8s backwards; }
-.hero-content p { animation: fadeInUp 1s ease 1.0s backwards; }
-.hero-content .quick-links { animation: fadeInUp 1s ease 1.2s backwards; }
-@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-/* =========================================
-   9. Mobile Responsive (手機版響應式設定 - 最終修正版)
-   ========================================= */
+/* =======================================================
+   9. Mobile Responsive (手機版/平板 統一設定)
+   ======================================================= */
+@media screen and (max-width: 1400px) {
+  .social-icons-row { grid-template-columns: repeat(4, 1fr); gap: 40px; max-width: 800px; }
+}
 
-@media screen and (max-width: 900px) { /* 900px 以下都算手機平板 */
+@media screen and (max-width: 900px) {
+  html, body { overflow-x: hidden; width: 100%; }
+  header { padding: 12px 18px; }
   
-  /* 1. 全局設定 */
-  html, body {
-    overflow-x: hidden; 
-    width: 100%;
-  }
-
-  /* 2. 圖片自動縮放 */
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  /* 3. 字體調整 */
-  h1 { font-size: 2rem; } 
-  p { font-size: 1rem; line-height: 1.6; }
-
-  /* 4. 進場動畫縮小 */
-  .radial-progress-container {
-    transform: scale(0.75); 
-  }
+  /* 字體縮放 */
+  h1 { font-size: 2rem; } h2, .about-box h2 { font-size: 2.8rem; }
+  .hero h1 { font-size: 3rem; }
   
-  /* 5. 修正最底下的社群圖示 (Contact) */
-  .social-icons-row {
-    grid-template-columns: repeat(2, 1fr); /* 變成兩排 */
-    gap: 30px; 
-    max-width: 400px;
-  }
-  .social-icons-row img {
-    width: 100px;  
-    height: 100px;
-  }
-
-  /* 6. 內容留白 */
-  .container, section {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  /* ★★★ 7. 重點修正：「關於我」的軟體圖示 ★★★ */
-  /* 這次用的是正確的名稱 .skills-icons */
-  .skills-icons {
-    display: flex;
-    flex-wrap: wrap;        /* 關鍵：讓圖示太擠時自動換行！ */
-    justify-content: center; /* 置中對齊 */
-    gap: 15px;              /* 圖示之間的距離 */
-    margin-top: 20px;
-  }
+  /* 容器調整 */
+  .container { padding: 80px 18px; }
+  .container, section { padding-left: 20px; padding-right: 20px; }
   
-  /* 強制縮小圖示 (原本 72px 太大) */
-  .skills-icons img {
-    width: 45px !important;  /* 強制改成 45px，手機看剛剛好 */
-    height: 45px !important;
-    margin: 5px;
-  }
+  /* About Mobile */
+  #about { padding: 40px 0; }
+  .about-box { width: 94%; padding: 40px 24px; }
+  .about-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+  .about-box h2 { text-align: center; border-left: none; border-bottom: 5px solid var(--accent); padding-left: 0; padding-bottom: 10px; display: inline-block; width: auto; margin-bottom: 30px; }
+  .about-name { align-self: center; } .about-right { align-items: center; }
+  .about-avatar img { max-width: 280px; margin: 0 auto; display: block; }
+  .email-contact { justify-content: center; display: flex; }
+  
+  /* ★ 軟體圖示修正 (自動換行+縮小) ★ */
+  .skills-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 20px; }
+  .skills-icons i, .skills-icons img { width: 45px !important; height: 45px !important; font-size: 45px !important; margin: 5px; }
+
+  /* Works Mobile */
+  .work-card { flex: 0 0 85vw; width: 85vw; }
+  .video-wrapper { height: auto; aspect-ratio: 16/9; }
+  .scroll-btn { display: none; }
+  .carousel-container { margin: 0 -10px; width: auto; }
+  .carousel-track { padding: 10px 20px; gap: 20px; }
+
+  /* Contact Mobile */
+  #contact h2 { font-size: 3rem; margin-bottom: 50px; }
+  .social-icons-row { grid-template-columns: repeat(2, 1fr); gap: 30px; max-width: 400px; }
+  .social-icons-row img { width: 100px; height: 100px; }
+
+  /* Footer & Loader Mobile */
+  .footer-container { flex-direction: column; gap: 20px; text-align: center; }
+  .radial-progress-container { transform: scale(0.75); }
 }
